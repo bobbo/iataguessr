@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>IATA Airport Code Guesser</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
+    </head>
+    <body>∑
+        <h1>IATA Airport Code Guesser</h1>
+        <div id="app">
+            <input type="button" value="Start!" v-if="!started" v-on:click="startGame">
+            <div v-if="started && !answerSubmitted">
+                <span id="question">What is the code for {{airport.name}}?</span>
+                <input type="text" v-model="answer">
+                <input type="button" v-on:click="submitAnswer" value="Submit">
+            </div>
+            <div v-if="answerSubmitted">
+                <div v-if="answerCorrect">Right!</div>
+                <div v-if="!answerCorrect">Wrong! It's {{airport.code}}</div>
+                <input type="button" value="Try another" v-on:click="newAirport">
+            </div>
+        </div>
+    </body>
+
+    <!-- Link Vue app at bottom so page is ready when it loads -->
+    <script src="/js/index.js" type="text/javascript" async></script>
+</html>
