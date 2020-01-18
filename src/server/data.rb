@@ -6,6 +6,17 @@ class Airport
         @name = name
         @code = code
         @region = region
+        @country = parse_country(region)
+        puts @country
+    end
+
+    def parse_country(region) 
+        split = region.split('-')
+        if split.count > 0
+            return split[0]
+        end
+
+        return region
     end
 
     def as_hash()
@@ -16,6 +27,10 @@ class Airport
         return @region
     end
 
+    def country()
+        return @country
+    end
+
 end
 
 class Airports 
@@ -23,40 +38,29 @@ class Airports
     @@airports_data_path = './data/airports.csv'
 
     def initialize()
-        @airports = []
-        airports_data = CSV.parse(File.read(@@airports_data_path), headers: true)
-        
-        for data in airports_data do
-            # Skip any airports without a valid IATA code
-            # TODO: Condition needs refactored based on what we do with different regions
-            if data['iata_code'] == nil || (data['type'] != 'large_airport' || !data['iso_region'].include?('GB-'))
-                next
-            end
-
-            @airports.push(Airport.new(data['name'], data['iata_code'], data['iso_region']))
-        end
+        @airports = load_airports()
 
         p "Loaded " + @airports.count.to_s + " airports"
     end
 
-    def random_airport()
-        return @airports.sample(1).map { |a| a.as_hash }
-    end
-
-    def random_airport_from_region(region)
-        return @airports.select { |a| a.region == region }.sample(1).map {| a | a.as_hash }
-    end
-
-    # TODO: Generate a regions list from airports list at startup, use for better region matching logic later
-    def get_regions()
-        regions = []
-        for airport in @airports do
-            if !regions.include?(airport.region)
-                regions.push(airport.region)
+    def load_airports()
+        airports_data = CSV.parse(File.read(@@airports_data_path), headers: true)
+        airports = []
+        
+        for data in airports_data do
+            # Skip tiny airports and any airport without an IATA code
+            if !(data['type'] == 'small_airport' || data['type'] == 'large_airport') || data['iata_code'] == nil
+                next
             end
+
+            airports.push(Airport.new(data['name'], data['iata_code'], data['iso_region']))
         end
 
-        return regions
+        return airports
+    end
+
+    def all()
+        return @airports
     end
 
 end
