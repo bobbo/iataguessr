@@ -12,5 +12,5 @@ ruby src/server/app.rb
 *localhost:4567* to see the app.
 
 
-* `src/server`: Sinatra server, data from `./data` (CSV source https://github.com/datasets/airport-codes)
+* `src/server`: Sinatra server, data from `./data` (CSV source https://ourairports.com/data/)
 * `src/client` & `src/server/views`: VueJS based front-end
