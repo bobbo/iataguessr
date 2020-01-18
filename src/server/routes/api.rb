@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require 'json'
 
-require_relative '../data.rb'
+require_relative '../airport.rb'
 require_relative "../quiz.rb"
 
 class Api < Sinatra::Base
@@ -9,13 +9,10 @@ class Api < Sinatra::Base
     airports = Airports.new
     quizzes = QuizDefinitions.new
 
-    get '/api/airport/random' do
-        json({ :airports => airports.random_airport() })
-    end
-
     get '/api/airport/:quiz/random' do
         quiz = params['quiz']
         quiz_filter = quizzes.get_filter(quiz)
+        p quiz_filter
 
         if quiz_filter == nil 
             return json({ :failed => "Unknown quiz" })

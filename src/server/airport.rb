@@ -2,12 +2,12 @@ require 'csv'
 
 class Airport
 
-    def initialize(name, code, region)
+    def initialize(name, code, region, type)
         @name = name
         @code = code
         @region = region
         @country = parse_country(region)
-        puts @country
+        @type = type
     end
 
     def parse_country(region) 
@@ -29,6 +29,10 @@ class Airport
 
     def country()
         return @country
+    end
+
+    def type()
+        return @type
     end
 
 end
@@ -53,7 +57,7 @@ class Airports
                 next
             end
 
-            airports.push(Airport.new(data['name'], data['iata_code'], data['iso_region']))
+            airports.push(Airport.new(data['name'], data['iata_code'], data['iso_region'], data['type']))
         end
 
         return airports

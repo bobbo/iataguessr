@@ -43,19 +43,17 @@ class QuizFilterer
     end
 
     def match?(airport)
-        if @quiz.regions != nil && @quiz.regions.include?(airport.region)
-            return true
-        end
+        valid = false
 
-        if @quiz.countries != nil && @quiz.countries.include?(airport.country)
-            return true
-        end
+        region_ok = @quiz.regions != nil && @quiz.regions.include?(airport.region)
+        country_ok = @quiz.countries != nil && @quiz.countries.include?(airport.country)
 
-        if @quiz.type != nil && quiz.type == airport.type
-            return true
+        if @quiz.type == nil 
+            return region_ok || country_ok
+        else 
+            type_ok = @quiz.type == airport.type
+            return (region_ok || country_ok) && type_ok
         end
-
-        return false
     end
 
 end
