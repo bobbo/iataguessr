@@ -1,5 +1,7 @@
 class Quiz 
 
+    attr_reader :code, :regions, :countries, :type
+
     # TODO: I don't think the default values work like I expect, find out how to do it
     def initialize(code, name, description, regions=nil, countries=nil, type=nil)
         @code = code
@@ -8,22 +10,6 @@ class Quiz
         @regions = regions
         @countries = countries
         @type = type
-    end
-
-    def code()
-        return @code
-    end
-
-    def regions()
-        return @regions
-    end
-
-    def countries()
-        return @countries
-    end
-
-    def type()
-        return @type
     end
 
     def as_hash()
@@ -63,8 +49,9 @@ class QuizDefinitions
     def initialize()
         @quizzes = [
             Quiz.new("uk", "UK Major Airports", "All large airports in the UK", nil, ["GB"], 'large_airport'),
-            Quiz.new("scotland", "Scotland Major Airports", "All large airports in Scotland", ["GB-SCT"], nil, nil),
-            Quiz.new("england", "England Major Airports", "All large airports in England", ["GB-ENG"], nil, nil),
+            Quiz.new("scotland", "Scotland Airports", "All large & small airports in Scotland", ["GB-SCT"], nil, nil),
+            Quiz.new("england", "England Airports", "All large & small airports in England", ["GB-ENG"], nil, nil),
+            Quiz.new("us", "US Major Airports", "All large airports in the US", nil, ["US"], 'large_airport'),
         ]
     end
 

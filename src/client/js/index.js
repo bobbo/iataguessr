@@ -1,4 +1,3 @@
-
 var app = new Vue({
     el: '#app',
     data: {
@@ -19,7 +18,7 @@ var app = new Vue({
         },
         newAirport() {
             axios
-                .get('/api/airport/uk/random')
+                .get('/api/airport/us/random')
                 .then((response) => {
                     console.log(response);
                     this.airport = response.data.airports[0];

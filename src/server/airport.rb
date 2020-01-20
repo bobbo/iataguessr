@@ -2,6 +2,8 @@ require 'csv'
 
 class Airport
 
+    attr_reader :region, :country, :type
+
     def initialize(name, code, region, type)
         @name = name
         @code = code
@@ -21,18 +23,6 @@ class Airport
 
     def as_hash()
         return { :name => @name, :code => @code, :region => @region }
-    end
-
-    def region()
-        return @region
-    end
-
-    def country()
-        return @country
-    end
-
-    def type()
-        return @type
     end
 
 end
